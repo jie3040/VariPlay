@@ -1,0 +1,32 @@
+{
+  "per_iter": [
+    {
+      "iter": 1,
+      "record_dir": "$STORAGE_PATH/records/curriculum_train/phase4_f3_iter1_20260515_163728_question",
+      "n_records": 128,
+      "adv_reject_rate": 0.9271874999999999,
+      "d2_model_source_ratio": 1.0,
+      "d4_mean_code_len": 668.9254457050243
+    },
+    {
+      "iter": 2,
+      "record_dir": "$STORAGE_PATH/records/curriculum_train/phase4_f3_iter2_20260515_172613_question",
+      "n_records": 128,
+      "adv_reject_rate": 0.9390625,
+      "d2_model_source_ratio": 1.0,
+      "d4_mean_code_len": 667.3649517684887
+    },
+    {
+      "iter": 3,
+      "record_dir": "$STORAGE_PATH/records/curriculum_train/phase4_f3_iter3_20260515_181946_question",
+      "n_records": 128,
+      "adv_reject_rate": 0.9128125000000001,
+      "d2_model_source_ratio": 1.0,
+      "d4_mean_code_len": 684.6563011456628
+    }
+  ],
+  "d1_delta": -0.014374999999999805,
+  "d1_pass": false,
+  "d2_pass": true,
+  "d4_pass": true
+}

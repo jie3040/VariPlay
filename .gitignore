@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VeriPlay runtime
+veriplay_storage/
+agent0_smoke_storage/
+records/
+logs/
+wandb/
+*.log
+
+# Large model and checkpoint files
+*.bin
+*.safetensors
+*.pt
+**/global_step_*/actor/model_*.pt
+**/global_step_*/actor/extra_state_*.pt
+**/dataloader.pt
+**/Qwen2.5-*/
+**/Qwen3-*/
+
+# Executor trajectory dumps can be large
+**/torl-step-*.json
+

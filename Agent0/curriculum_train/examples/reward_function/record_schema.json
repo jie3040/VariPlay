@@ -1,0 +1,220 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Agent0 Curriculum Train Record",
+  "type": "object",
+  "required": [
+    "meta",
+    "curriculum",
+    "executor_results",
+    "executor_aggregation",
+    "reward_breakdown",
+    "veriplay",
+    "critic_scores"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "stage",
+        "experiment_name",
+        "global_step",
+        "rollout_id",
+        "candidate_idx",
+        "timestamp",
+        "model_paths",
+        "config_snapshot"
+      ],
+      "properties": {
+        "stage": {"type": "string"},
+        "experiment_name": {"type": "string"},
+        "global_step": {"type": "integer"},
+        "rollout_id": {"type": "integer"},
+        "candidate_idx": {"type": "integer"},
+        "timestamp": {"type": "string"},
+        "uid": {"type": ["string", "null"]},
+        "model_paths": {"type": "object"},
+        "config_snapshot": {"type": "object"}
+      }
+    },
+    "curriculum": {
+      "type": "object",
+      "required": ["prompt", "raw_output", "parsed"],
+      "properties": {
+        "prompt": {
+          "type": "object",
+          "required": ["system", "user"],
+          "properties": {
+            "system": {"type": "string"},
+            "user": {"type": "string"},
+            "text": {"type": "string"}
+          }
+        },
+        "raw_output": {"type": "string", "minLength": 1},
+        "ground_truth": {"type": ["string", "number", "null"]},
+        "parsed": {
+          "type": "object",
+          "required": ["question", "answer", "format_valid", "n_tool_markers"],
+          "properties": {
+            "question": {"type": "string"},
+            "answer": {"type": "string"},
+            "format_valid": {"type": "boolean"},
+            "n_tool_markers": {"type": "integer"}
+          }
+        }
+      }
+    },
+    "executor_results": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "executor_aggregation": {
+      "type": "object",
+      "required": [
+        "n_candidates",
+        "all_extracted_answers",
+        "answer_counts",
+        "majority_answer",
+        "self_consistency",
+        "match_curriculum_answer",
+        "score_returned_to_curriculum"
+      ]
+    },
+    "reward_breakdown": {
+      "type": "object",
+      "required": [
+        "format_valid",
+        "uncertainty",
+        "tool_reward",
+        "repetition_penalty",
+        "verifier_writable",
+        "model_valid_rate",
+        "model_mean_adv_reject_rate",
+        "overall"
+      ],
+      "properties": {
+        "format_valid": {"type": "boolean"},
+        "uncertainty": {"type": "number"},
+        "tool_reward": {"type": "number"},
+        "repetition_penalty": {"type": "number"},
+        "verifier_writable": {"type": ["number", "null"]},
+        "model_valid_rate": {"type": ["number", "null"]},
+        "model_mean_adv_reject_rate": {"type": ["number", "null"]},
+        "weights": {
+          "type": ["object", "null"],
+          "properties": {
+            "W_UNC": {"type": "number"},
+            "W_VERIFIABLE": {"type": "number"},
+            "W_TOOL": {"type": "number"},
+            "W_REP": {"type": "number"}
+          }
+        },
+        "overall": {"type": "number"}
+      }
+    },
+    "veriplay": {
+      "type": "object",
+      "required": ["critic_output", "verifier_executions", "perturbations"],
+      "properties": {
+        "critic_output": {
+          "type": ["object", "null"],
+          "required": ["raw_outputs", "parsed_verifiers", "n_valid", "n_requested"],
+          "properties": {
+            "raw_outputs": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "parsed_verifiers": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["verifier_idx", "valid", "code", "syntax_error", "source", "fallback_reason"],
+                "properties": {
+                  "verifier_idx": {"type": "integer"},
+                  "valid": {"type": "boolean"},
+                  "code": {"type": ["string", "null"]},
+                  "syntax_error": {"type": ["string", "null"]},
+                  "source": {"type": "string", "enum": ["model", "fallback"]},
+                  "fallback_reason": {"type": ["string", "null"]}
+                }
+              }
+            },
+            "n_valid": {"type": "integer", "minimum": 0},
+            "n_requested": {"type": "integer", "minimum": 1},
+            "generation_time_ms": {"type": "integer", "minimum": 0},
+            "error": {"type": "string"}
+          }
+        },
+        "verifier_executions": {
+          "type": ["array", "null"],
+          "items": {
+            "type": "object",
+            "required": ["candidate_idx", "verifier_idx", "source", "fallback_reason", "passed", "fail_step", "exec_time_ms"],
+            "properties": {
+              "candidate_idx": {"type": "integer"},
+              "verifier_idx": {"type": "integer"},
+              "source": {"type": "string", "enum": ["model", "fallback"]},
+              "fallback_reason": {"type": ["string", "null"]},
+              "passed": {"type": "boolean"},
+              "fail_step": {"type": "integer"},
+              "exec_time_ms": {"type": "integer", "minimum": 0},
+              "exec_error": {"type": ["string", "null"]},
+              "exec_stderr": {"type": "string"}
+            }
+          }
+        },
+        "perturbations": {
+          "type": ["array", "null"],
+          "items": {
+            "type": "object",
+            "required": ["candidate_idx", "perturbation_type", "applied_successfully", "verifier_results"],
+            "properties": {
+              "candidate_idx": {"type": "integer"},
+              "perturbation_type": {
+                "type": "string",
+                "enum": ["arg_mutation", "step_drop", "step_swap", "early_terminate", "tool_substitute"]
+              },
+              "perturbation_params": {"type": "object"},
+              "applied_successfully": {"type": "boolean"},
+              "skip_reason": {"type": ["string", "null"]},
+              "perturbed_summary": {"type": "string"},
+              "perturbed_trajectory": {"type": "object"},
+              "verifier_results": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["verifier_idx", "source", "passed"],
+                  "properties": {
+                    "verifier_idx": {"type": "integer"},
+                    "source": {"type": "string", "enum": ["model", "fallback"]},
+                    "passed": {"type": "boolean"},
+                    "fail_step": {"type": "integer"},
+                    "exec_time_ms": {"type": "integer"},
+                    "exec_error": {"type": ["string", "null"]}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "critic_scores": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "object",
+        "required": ["verifier_idx", "source", "gold_pass_rate", "adv_reject_rate", "r_critic"],
+        "properties": {
+          "verifier_idx": {"type": "integer"},
+          "source": {"type": "string", "enum": ["model", "fallback"]},
+          "gold_pass_rate": {"type": "number"},
+          "adv_reject_rate": {"type": "number"},
+          "redundancy": {"type": "number"},
+          "r_critic": {"type": "number"},
+          "alpha": {"type": "number"},
+          "beta": {"type": "number"},
+          "gamma": {"type": "number"}
+        }
+      }
+    }
+  }
+}

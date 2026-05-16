@@ -1,0 +1,10 @@
+{
+  "phase": "Phase 4 Step F.3",
+  "n_questions": 32,
+  "baseline_variance": 0.002315,
+  "veriplay_variance": 0.004694,
+  "variance_ratio": 2.03,
+  "status": "PASS",
+  "notes": "Computed post-hoc from the same F.3 JSONL records; no independent baseline iteration was run."
+}
+

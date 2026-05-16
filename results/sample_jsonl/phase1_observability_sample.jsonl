@@ -1,0 +1,2 @@
+{"schema_version":"1.1","run":{"phase":"phase1_observability","step":1},"curriculum":{"prompt":{"system":"Generate a math reasoning task.","user":"Create one task requiring careful computation."},"raw_output":"Find 17 * 23.","question":"Find 17 * 23.","reward_breakdown":{"uncertainty":0.5,"tool_reward":0.0,"repetition_penalty":0.0,"final_reward":0.375}},"executor":{"trajectories":[]},"veriplay":{"critic_output":null,"verifier_executions":null,"perturbations":null},"metadata":{"paths":"redacted"}}
+

@@ -1,0 +1,2 @@
+{"schema_version":"1.4","run":{"phase":"phase4_f3","iter":3},"curriculum":{"question":"Reverse the string 'agent0 verifier'.","reward_breakdown":{"verifier_writable":0.9128,"model_valid_rate":1.0,"model_mean_adv_reject_rate":0.9128,"final_reward":0.2343}},"veriplay":{"critic_scores":[{"verifier_idx":0,"source":"model","gold_pass_rate":1.0,"adv_reject_rate":0.8,"redundancy":0.18,"r_critic":0.482}]},"metadata":{"paths":"redacted","checkpoint":"not_included"}}
+

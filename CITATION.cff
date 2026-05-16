@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use VeriPlay, please cite the paper once available."
+title: "VeriPlay: Self-Play with Executable Verifiers as Grounded Adaptive Discriminators"
+authors:
+  - family-names: "TBD"
+    given-names: "TBD"
+year: 2026
+url: "https://arxiv.org/abs/XXXX.XXXXX"
+license: "Apache-2.0"

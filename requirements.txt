@@ -1,0 +1,18 @@
+# VeriPlay top-level convenience requirements.
+# The full project uses two conda environments; see setup.sh.
+# Keep this file lightweight for docs/tests and basic scripts.
+
+pytest
+jsonschema
+numpy
+pandas
+pyarrow
+requests
+fastapi
+uvicorn
+jinja2
+datasets
+transformers
+accelerate
+torch
+
